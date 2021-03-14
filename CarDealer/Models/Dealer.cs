@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarDealer.Models
 {
-    public class Dealer_table
+    public class Dealer
     {
         public int Id { get; set; }
         [StringLength(30), Required]
@@ -21,7 +21,7 @@ namespace CarDealer.Models
         public string Email { get; set; }
         public int CarCount { get; set; }
 
-        public Dealer_table() { }
-
+        public Dealer() { }
+        
     }
 }
