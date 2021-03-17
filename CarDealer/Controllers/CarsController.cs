@@ -54,19 +54,24 @@ namespace CarDealer.Controllers
             {
                 return BadRequest();
             }
-
             car.Status = "RECEIVED";
+
             var dealer = await _context.Dealer.FindAsync(id);
             dealer.CarCount++;
+            await _context.SaveChangesAsync();
+            
+            return await PutCar(car.Id, car);
+
+        }
+            
+
+
+
+
                 
             
 
 
-
-            return await PutCar(car.Id, car);
-
-            
-        }
             
           
 
@@ -131,9 +136,12 @@ namespace CarDealer.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Car>> PostCar(Car car)
+        public async Task<ActionResult<Car>> PostCar(int id, Car car)
         {
             _context.Car.Add(car);
+            car.Status = "RECEIVED";
+            var dealer = await _context.Dealer.FindAsync(id);
+            dealer.CarCount++;
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetCar", new { id = car.Id }, car);
